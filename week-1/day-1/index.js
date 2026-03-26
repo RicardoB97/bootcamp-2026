@@ -28,6 +28,22 @@ function reverseString(str) {
   return resultado;
 }
 
+function isPalindrome(str) {
+  // tu código aquí
+
+  
+    if (str===reverseString(str)) {
+      return true;
+    } else {
+      return false;
+    }
+  
+}
+
+
+
 // pruebas
 console.log(twoSum([2,7,11,15], 9)); // debe dar [0,1]
 console.log(reverseString("hola"));
+console.log(isPalindrome("ana"));  // true
+console.log(isPalindrome("hola")); // false
