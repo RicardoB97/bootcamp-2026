@@ -40,9 +40,26 @@ function isPalindrome(str) {
   
 }
 
+function findMax(arr) {
+  // tu código aquí
+
+  let max = 0;
+  for(let i=0; i <= arr.length; i++){
+    if (arr[i] > max) {
+      max = arr[i];
+      i++;
+    } 
+    
+  }
+  return max;
+}
+
+
+
 
 
 // pruebas
+console.log(findMax([3,7,2,9,5]));
 console.log(twoSum([2,7,11,15], 9)); // debe dar [0,1]
 console.log(reverseString("hola"));
 console.log(isPalindrome("ana"));  // true
