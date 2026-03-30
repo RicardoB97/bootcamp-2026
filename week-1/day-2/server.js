@@ -47,6 +47,36 @@ app.post('/cases', (req, res) => {
   cases.push(newCase);
 
   console.log(cases);
-  
+
   res.status(201).json(newCase);
+});
+
+app.put('/cases/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const caseIndex = cases.findIndex(c => c.id === id);
+
+  if (caseIndex === -1) {
+    return res.status(404).send("Case not found");
+  }
+
+  cases[caseIndex] = {
+    ...cases[caseIndex],
+    client: req.body.client,
+    status: req.body.status
+  };
+
+  res.json(cases[caseIndex]);
+});
+
+app.delete('/cases/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const caseIndex = cases.findIndex(c => c.id === id);
+
+  if (caseIndex === -1) {
+    return res.status(404).send("Case not found");
+  }
+
+  const deletedCase = cases.splice(caseIndex, 1);
+
+  res.json(deletedCase);
 });
