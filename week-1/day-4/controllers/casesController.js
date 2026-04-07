@@ -86,3 +86,21 @@ exports.deleteCase = (req, res) => {
     }
   );
 };
+
+exports.login = (req, res) => {
+  const { username, passwrd } = req.body;
+
+  db.query(
+    'SELECT * FROM users WHERE username = ? AND passwrd = ?',
+    [username, passwrd],
+    (err, results) => {
+      if (err) return res.status(500).send(err);
+
+      if (results.length === 0) {
+        return res.status(401).json({ message: "Invalid credentials" });
+      }
+
+      res.json({ message: "Login successful" });
+    }
+  );
+};
