@@ -1,23 +1,25 @@
 const express = require('express');
 const router = express.Router();
-const auth = require('../middleware/auth');
+
+const auth = require('../middleware/auth'); // 👈 IMPORTANTE
 
 const {
   getCases,
   getCaseById,
   createCase,
-  login,
   updateCase,
-  deleteCase
+  deleteCase,
+  login
 } = require('../controllers/casesController');
 
-router.get('/', getCases);
-router.get('/:id', getCaseById);
-router.get('/', auth, getCases);
-router.post('/', createCase);
 router.post('/login', login);
+
+
+router.get('/', auth, getCases);
+
+router.get('/:id', getCaseById);
+router.post('/', createCase);
 router.put('/:id', updateCase);
 router.delete('/:id', deleteCase);
 
-
-module.exports = router; // 
+module.exports = router;
