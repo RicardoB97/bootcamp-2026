@@ -2,10 +2,11 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const db = require('../config/db');
 
-const register = async (req, res) => {
+const register = async (req, res, next) => {
   const { email, password, role } = req.body;
 
   try {
+    
     const hashedPassword = await bcrypt.hash(password, 10);
 
     await db.query(
@@ -18,13 +19,12 @@ const register = async (req, res) => {
     });
 
   } catch (error) {
-    res.status(500).json({
-      error: error.message
-    });
-  }
+  next(error);
+}
+
 };
 
-const login = async (req, res) => {
+const login = async (req, res, next) => {
   const { email, password } = req.body;
 
   try {
@@ -66,9 +66,7 @@ const login = async (req, res) => {
     res.json({ token });
 
   } catch (error) {
-    res.status(500).json({
-      error: error.message
-    });
+    next(error);
   }
 };
 
