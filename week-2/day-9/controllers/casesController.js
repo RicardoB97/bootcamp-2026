@@ -22,9 +22,30 @@ const getCases = async (req, res, next) => {
 
   console.log('ENTRO AL NUEVO CONTROLLER');
 
-  res.json({
-    prueba: 'SI VES ESTO, ESTAMOS EN EL CONTROLLER NUEVO'
-  });
+  try {
+
+    const [rows] = await db.query(`
+    SELECT
+      cases_.id,
+      cases_.title,
+      cases_.description,
+      users.email,
+      users.role
+    FROM cases_
+    JOIN users
+      ON cases_.user_id = users.id
+`);
+
+    console.log(rows);
+
+    res.json(rows);
+
+  } catch (error) {
+
+    console.error(error);
+    next(error);
+
+  }
 
 };
 
